@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/BayatGames/Free Platform Game Assets/Demo/Demo.unity
+- path: "Assets/\u52D5\u756B/\u904A\u6232.unity"
   isLoaded: 1
   isActive: 1
