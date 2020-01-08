@@ -1,16 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class NPC : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
+public class NPC : MonoBehaviour
+{
+    [Header("對話")]
+    public string sayStart=""
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

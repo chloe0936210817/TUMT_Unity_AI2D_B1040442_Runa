@@ -2,11 +2,13 @@
 
 public class Protagonist : MonoBehaviour
 {
+    #region
     public int speed = 50;
     public float jump = 2.5f;
     public string protagonistName = "主角";
     public bool pass = false;
-
+    public bool isGround = false;
+    #endregion
     private Rigidbody2D r2d;
     //private Transform tra;
 
@@ -31,6 +33,12 @@ public class Protagonist : MonoBehaviour
         Jump();
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        isGround = true;
+        Debug.Log("碰到東西:" + collision.gameObject);
+    }
+
     //走路
     private void Walk()
     {
@@ -40,8 +48,12 @@ public class Protagonist : MonoBehaviour
     //跳躍
     private void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) 
-        r2d.AddForce(new Vector2(0,jump));
+            if (Input.GetKeyDown(KeyCode.Space) && isGround==true)
+        {
+                isGround = false;
+                r2d.AddForce(new Vector2(0,jump));
+            
+        }
     }
 
     //右轉
