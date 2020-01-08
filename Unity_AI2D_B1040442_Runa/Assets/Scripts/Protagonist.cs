@@ -1,16 +1,18 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 public class Protagonist : MonoBehaviour
 {
-    #region
     public int speed = 50;
     public float jump = 2.5f;
     public string protagonistName = "主角";
     public bool pass = false;
     public bool isGround = false;
-    #endregion
-    private Rigidbody2D r2d;
+
+    public UnityEvent onEat;
+    
     //private Transform tra;
+    private Rigidbody2D r2d;
 
     //開始事件
     private void Start()
@@ -37,6 +39,15 @@ public class Protagonist : MonoBehaviour
     {
         isGround = true;
         Debug.Log("碰到東西:" + collision.gameObject);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "金幣")
+        {
+            Destroy(collision.gameObject);
+            onEat.Invoke();
+        }
     }
 
     //走路
@@ -67,9 +78,8 @@ public class Protagonist : MonoBehaviour
     }
 
     //轉彎
-    private void Turn(int direction)
+    private void Turn(int direction = 0)
     {
         transform.eulerAngles = new Vector3(0, direction, 0);
     }
-
 }
