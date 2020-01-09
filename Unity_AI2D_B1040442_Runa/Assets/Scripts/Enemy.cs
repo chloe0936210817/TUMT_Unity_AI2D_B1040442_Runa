@@ -30,10 +30,15 @@ public class Enemy : MonoBehaviour
     //隨機移動
     private void Move()
     {
-        r2d.AddForce(new Vector2(-speed, 0));
+        //r2d.AddForce(new Vector2(-speed, 0));
+        r2d.AddForce(transform.right * speed);
+
         RaycastHit2D hit = Physics2D.Raycast(checkPoint.position, -checkPoint.up, 1.5f, 1 << 8);
 
-
+        if(hit == false)
+        {
+            transform.eulerAngles += new Vector3(0, 180, 0);
+        }
     }
 
     //追蹤
