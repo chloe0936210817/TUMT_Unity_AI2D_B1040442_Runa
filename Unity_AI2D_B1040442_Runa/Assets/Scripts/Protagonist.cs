@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class Protagonist : MonoBehaviour
 {
@@ -14,11 +15,21 @@ public class Protagonist : MonoBehaviour
     //private Transform tra;
     private Rigidbody2D r2d;
 
+    [Header("血量"), Range(0, 200)]
+    public float hp = 100;
+
+    public Image hpBar;
+    public GameObject final;
+
+    private float hpMax;
+
     //開始事件
     private void Start()
     {
         r2d = GetComponent<Rigidbody2D>();
         //tra = GetComponent<Transform>();
+
+        hpMax = hp;
     }
 
     //更新事件
@@ -26,6 +37,7 @@ public class Protagonist : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.D)) Turn(0);
         if (Input.GetKeyDown(KeyCode.A)) Turn(180);
+        if (this.transform.position.y <= -14) final.SetActive(true);
     }
 
     //固定更新事件
@@ -81,5 +93,13 @@ public class Protagonist : MonoBehaviour
     private void Turn(int direction = 0)
     {
         transform.eulerAngles = new Vector3(0, direction, 0);
+    }
+
+    public void Damage(float damage)
+    {
+        hp -= damage;
+        hpBar.fillAmount = hp / hpMax;
+
+        if (hp <= 0) final.SetActive(true);
     }
 }

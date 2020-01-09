@@ -27,6 +27,22 @@ public class Enemy : MonoBehaviour
         Gizmos.DrawRay(checkPoint.position, -checkPoint.up * 3);
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.name == "主角")
+        {
+            Track(collision.transform.position);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.name == "主角" && collision.transform.position.y<transform.position.y+1) 
+        {
+            collision.gameObject.GetComponent<Protagonist>().Damage(damage);
+        }
+    }
+
     //隨機移動
     private void Move()
     {
@@ -42,8 +58,15 @@ public class Enemy : MonoBehaviour
     }
 
     //追蹤
-    private void Track()
+    private void Track(Vector3 target)
     {
-
+        if (target.x < transform.position.x)
+        {
+            transform.eulerAngles = new Vector3(0, 180, 0);
+        }
+        else
+        {
+            transform.eulerAngles = Vector3.zero;
+        }
     }
 }
